@@ -43,13 +43,138 @@
 大学初年度でやる微積分の内容から曲線論や微分幾何について紹介する.
 
 \section{一変数の微分}
-微分の定義
-微分の基本的な性質
+ここでは一変数関数の微分を解説する.
+定義から始まり、基本的な性質を調べる.
+\subsection{微分の初等的な性質}
+\begin{dfn}[微分]
+ある関数$f:U \to \mathbb{R}$に対し,
+$x=q$で\textbf{微分可能}とは,
+\begin{equation*}
+\lim \frac{f(x) - f(a)}{x-a}
+\end{equation*}
+が存在することである.
+上の極限を$f'(a)$とかき,$f(x)$の$x=a$での微分という.
+定義域$U$上の任意の点で微分可能な時,$f$を\textbf{微分可能}という.
+\end{dfn}
 
-\subsection{初頭的な関数の微分}
+まずはこの定義に従い微分できるもの,微分できないものを考える.
+\begin{epl}
+$f(x) = x^n(n \ge 0)$は微分可能である.
+$f(x)$を$x < 0$の時$x^2$, $x> 0$の時,$x^3$とする$f(x)$は微分可能.
+\end{epl}
+逆に微分できない例をあげる.
+\begin{epl}
+$f(x) = |x|$
+これは$x=0$の時,微分できない
+$f(x) =  x, x^2$は微分不可能.
+\end{epl}
+
+\begin{rem}
+最近は微積分は工学、例えば機械学習等でもよく使われるが,こうした世界で微分を扱う時は実際には有限個の点しか観測できないことともあり,微分不可能な点を無視することがある.
+また,明らかに値が異なる場合でも劣微分という概念を用いてフォローする場合がある.
+\end{rem}
+
+微分ができるためには,直感的に"滑らか"でないといけないと想像するかもしれない.
+その一つの根拠として以下の命題がある.
+
+\begin{prop}
+$f$が$(a,b)$上微分可能な時,$f$は$(a,b)$上連続となる.
+\end{prop}
+\begin{proof}
+$f(x) - f(a) = (x-a) \frac{f(x) - f(a)}{x -a}$より
+\end{proof}
+
+\begin{thm}[合成関数の微分]
+$f(g(a+h)) - f(g(a))/ h
+= f(g(a+h)-f(g(a))/ g(a+h) - g(a) g(a+h) =g(a)/ h$
+で$h \to 0$の時$g(a+h) - g(a) \to 0$なので,問題ない。
+$f'(g(a)) g'(a)$となる.
+\end{thm}
+
+
+\begin{dfn}
+$f(x)$が一対一の関数のとき,$f(x)$の逆関数$g(x)$とは
+$y = f(x)$に対し,$y \mapsto x$となる関数
+\end{dfn}
+
+\begin{epl}[指数関数と対数関数]
+$3 \to 2^3$とすると$2^3 \to 3$となる関数.
+
+この時$g(y+h) - g(y)/h$とする。
+この時,$f(x) = y,f(x+l) = y+h$とすると
+$h = f(x+l) - f(x)$であり$g(y+h) = x +l,g(y) = x$となる.
+
+これより$x+l - l /f(x+l) - f(x)$となるので,
+$1/f'(x)$となる.ただし$f(x) = y$となる.
+\end{epl}
+
+
+\begin{prop}[三角関数の微分]
+$1-\cos x/x^2 = \lim (1 - \cos x)(1 + \cos x)/x^2 ...$
+
+$sin'x =cosx$
+$cos'x = - sinx$
+$tan'x = 1/ cos^2x$
+\end{prop}
+
+\begin{prop}[対数関数の微分]
+$\log_a(x+h) - \log_a(x)/h = \log_a(1+h/x)/h$
+h/x=tとすると $ 1/x \log_a(1+t)/t$
+となる.なのでこの値次第.
+\end{prop}
+
+実は
+$\lim_{h \to 0} (1 +h)^{1/h}:=e$という値になる.
+eの存在証明は飛ばすんですが、与太話をする。
+
+\begin{rem}
+- 世の中には自分の知らない、よく出来ているものがあるので知らないことを楽しんでほしい.
+- 何がわかればいいかを考える
+  今何をできればいいと思っているのか.
+- 自分で判断できるようになってほしい。
+答えは私から教えること自体は可能だが、根本的には自分で考えらるものなので、その考えて、自分で正しい、間違っているやモチベーションを理解できるようになってほしい.
+たとえばeがわかるって何がわかればいいの?(正解はない).
+- Question 1: 存在するか?
+- Question 2: 存在するならそれは1つか?
+- Question 3: それはどこに存在するか?
+  - どこは実数?
+  - 2〜3の実数か?
+  - 有理数?超越数?
+- Question 4: どういう性質を持つか
+  - $log_a(x)'=1/x \log_ae$となるのでa=eの時微分が簡単になる.
+
+- 今、自分は何を知りたいのか?
+  - 工学だと●●みたいな話をするけど、なぜ工学だとそれでいいのかを考えてほしい。
+  - 工学では所詮有限個のものしか扱わない
+  - 測定誤差より小さいものは本質的にどうしようもない.
+  - なのでそれ以上の意味がわかればいい。。。みたいな.
+
+- 統計だと有意であることを調べるためにある値以上であるかはかなり重要.
+  - 知りたい情報が何で
+  - 知りたい情報に対してどんな手段を使い
+  - 知りたい情報に対して今の手段がどの程度しれているいのか
+  を考えてくれるといいなと思う.
+\end{rem}
+
+
+
+\begin{prop}[指数関数の微分]
+逆関数の微分を使い
+指数関数の微分をする.
+$y= a^x$,$y= log_ax$
+$dx/dy = 1/y \log_ae$なので,$a^x/\log_ae$が求める値になる.
+logy = alogx
+\end{prop}
+
+これで初等的な関数の微分は全て終わる.
+
 \subsection{関数の近似}
-\begin{thm}[ロルの定理]
+関数の元の値と微分の値について関係がないか調べる.
+これを使い,関数を微分を用いて近似できないか議論する.
+特にこれを使い,関数の高次元な近似を調べる
 
+\begin{thm}[ロルの定理]
+関数$f: \mathbb{R} \to \mathbb{R}$が$[a, b]$上連続で$(a, b)$上連続とする.さらに$f(a) = f(b)$であれば,$f'(c) = 0$となる$c in (a,b)$が存在する.
 \end{thm}
 
 \begin{thm}[平均値の定理]
@@ -61,6 +186,7 @@
 \end{thm}
 
 \subsection{微分の計算方法}
+初等的な微分の計算方法を紹介する.
 
 
 \section{多変数の微分}
@@ -193,25 +319,47 @@ $f(x) \le 3$で$F(x)$が極小となる$x$を求める.
   \item  $f(x ,y) = 0$が具体的に書き下せるか判定したい.
 \end{itemize}
 
-## 陰関数
-- 陰関数とは$f(x, y) = 0$で表せるもののこと
-- 陰関数は関数とは限らない.
-  - $x$と$y$が一対一ではない
-- 例) $f(x , y) = x^2 + y^2 = 1$
+実は$f(x,y) = 0$で定められるものには以下のような名前がついている.
+\begin{dfn}
+陰関数とは$f(x, y) = 0$で表せるもののこと
+\end{dfn}
 
-## 陰関数定理
-- 条件
-  - $f(x ,y)$は連続微分可能
-  - $(a, b)$で$f(a , b) = 0$となる
-  - $\frac{\partial f(x, y)}{\partial y} \neq 0$とする.
+陰関数という名前に注意をしてほしいのだが,
+陰関数は一般には関数とは限らない.
+実際ある$x$に対して、条件を満たす$y$が一つに定まるとは限らないため,関数と表せるとは限らない.
 
+\begin{epl}
+$f(x , y) = x^2 + y^2 = 1$は関数としては表せない
+\end{epl}
+
+上の話は陰関数は完全には関数として表せないという話であった.
+では,陰関数はどういう場合に関数として書き表すことができるかが自然に気になる.
+関数とかけるかどうかはかなり難しいが,実は局所的には簡単に判別することができる.
+それが陰関数定理である.
+
+\begin{thm}
+$f(x ,y)$は連続微分可能であり,$(a, b)$で$f(a , b) = 0$であり,
+$\frac{\partial f(x, y)}{\partial y} \neq 0$とする.
 この時$V = (a - \delta, a + \delta),W = (b - \epsilon , b + \epsilon)$が存在し,
-$g:V \to W$で以下を満たすものが作れる
-  - $g(x) = y$と$f(x, y) = 0$は同値
-  - $g(x)$は微分可能
-  - $g'(x) = - \frac{\partial f}{\partial x} \cdot \frac{\partial f}{\partial y}^{-1}$
+$g:V \to W$で以下を満たすものが作れる.
+\begin{itemize}
+  \item $g(x) = y$と$f(x, y) = 0$は同値
+  \item $g(x)$は微分可能
+  \item $g'(x) = - \frac{\partial f}{\partial x} \cdot \frac{\partial f}{\partial y}^{-1}$
+\end{itemize}
+\end{thm}
+この証明はかなり長いので、いくつかに分解して行う.
 
-## 証明 その1 近傍の符号
+方針としては以下の通りである.
+
+\begin{enumerate}
+    \item 該当する点の近傍の符号を調べる
+    \item 該当の近傍上でほしい関数gを具体的に構成する.
+    \item 関数$g$の微分を調べるための道具を整備
+    \item 関数$g$の微分を計算
+\end{enumerate}
+
+1. 該当する点の近傍の符号を調べる
 - $\frac{\partial f}{\partial y}(a, b) > 0$とする.
 - $\frac{\partial f}{\partial y}$の連続性より$\exists  \epsilon y \in (b - \epsilon, b + \epsilon)$で$\frac{\partial f}{\partial y}(a, y) > 0$となり、
   - $f(a, b + \epsilon) > 0$
@@ -222,7 +370,7 @@ $g:V \to W$で以下を満たすものが作れる
   - $f(a - \delta, b - \epsilon) < 0$
   - $f(a + \delta, b - \epsilon) < 0$
 
-## 証明 その2 近傍上でのgの構成
+証明 その2 近傍上でのgの構成
 - $x \in (a - \delta, a + \delta), y \in (b - \epsilon, b + \epsilon)$に対し$\frac{\partial f}{\partial y}(x, y) > 0$とできる.
   - 必要なら$\delta, \epsilon$をさらに小さく取る.
 - $x_0 \in [a - \delta, a + \delta]$に対し,
@@ -233,17 +381,8 @@ $g:V \to W$で以下を満たすものが作れる
 - $g(x_0):= y_0$とする.
 - 他にこの近くに$f(x_0, y) = 0$となる$y$はない.
 
-## 証明すべきこと　再掲
-この時$V = (a - \delta, a + \delta),W = (b - \epsilon , b + \epsilon)$が存在し,
-$g:V \to W$で以下を満たすものが作れる
-  - $g(x) = y$と$f(x, y) = 0$は同値
-  - $g(x)$は微分可能
-  - $g'(x) = - \frac{\partial f}{\partial x} \cdot \frac{\partial f}{\partial y}^{-1}$
 
-- $g(x) = y$と$f(x, y) = 0$となる$g(x)$は作れた.
-- これから実際に微分を計算
-
-## 証明 その3 微分の計算の準備
+証明 その3 微分の計算の準備
 - $g(x_0) = y_0, g(x_0 + h) = y_0 + \ell$とする.
   - $f(x_0, y_0) = f(x_0 + h, y_0 + \ell) = 0$
 - $\frac{g(x_0 + h) - g(x_0)}{h} = \ell / h$となる.
@@ -255,7 +394,7 @@ $g:V \to W$で以下を満たすものが作れる
   - この時$0 \le \epsilon \le h$が存在し
   $$F(x+h) - F(x) = hF'(x+ \epsilon)$$
 
-## 証明 その4 微分の計算
+証明 その4 微分の計算
 - $f(x_0 + h, y_0 + \ell) - f(x_0 + h, y_0) + f(x_0+ h, y_0) - f(x_0, y_0) = 0$
 - 平均値の定理より
   - $f(x_0 + h, y_0 + l) - f(x_0 + h, y_0) = \ell \frac{\partial f}{\partial y}(x_0 + h, y_0 + \epsilon)$
@@ -266,22 +405,32 @@ $g:V \to W$で以下を満たすものが作れる
 
   $$\lim_{h \to 0} \frac{\ell}{h} = - \frac{\partial f}{\partial y}(x_0, y_0)^{-1} \frac{\partial f}{\partial x} (x_0, y_0)$$
 
-## 陰関数定理のまとめ
-- $(a, b)$で偏微分が0でなければ,$x$だけの関数として表せる.
-- $(a, b)$ごとに$g$は変わりうる.
-- $g'(x)$は$f$の偏微分で書ける.
 
-## ラグランジュの未定乗数法
-- $f(x ,y) = 0$となる$x, y$全体を$U$とする
-- $F(x, y)$が連続微分可能で$(a, b) \in U$が$U$上で$F(a, b)$が極小値とすると
+\begin{rem}
+陰関数定理の特徴を改めてまとめておくと以下のようになる.
+\begin{itemize}
+\item $(a, b)$で偏微分が0でなければ,$x$だけの関数として表せる.
+\item $(a, b)$ごとに$g$は変わりうる.
+\item $g'(x)$は$f$の偏微分で書ける.
+\end{itemize}
+\end{rem}
+
+\begin{thm}
+ラグランジュの未定乗数法
+$f(x ,y) = 0$となる$x, y$全体を$U$とする.
+$F(x, y)$が連続微分可能で$(a, b) \in U$が$U$上で$F(a, b)$が極小値とすると
   以下のいずれかが成り立つ.
-  - $\frac{\partial f(x, y)}{\partial x} = \frac{\partial f(x, y)}{\partial y} = 0$
-  - $G(x, y, r) = F(x, y) - r f(x, y)$に対し
-    - $\frac{\partial G(x, y, r)}{\partial x} = 0$
-    - $\frac{\partial G(x, y, r)}{\partial y} = 0$
-    - $\frac{\partial G(x, y, r)}{\partial r} = 0$
-
-## 証明の前に言い換え
+ \begin{itemize}
+  \item $\frac{\partial f(x, y)}{\partial x} = \frac{\partial f(x, y)}{\partial y} = 0$
+  \item $G(x, y, r) = F(x, y) - r f(x, y)$に対し
+  \begin{itemize}
+    \item $\frac{\partial G(x, y, r)}{\partial x} = 0$
+    \item $\frac{\partial G(x, y, r)}{\partial y} = 0$
+    \item $\frac{\partial G(x, y, r)}{\partial r} = 0$
+  \end{itemize}
+ \end{itemize}
+\end{thm}
+証明をする前にこの定理がいう内容を少し具体的に紹介したい.
 - $x, y$を必要なら置き換えることで$\frac{\partial f(x, y)}{\partial y} \neq 0$の時、
   以下が言えればよい
   - $\frac{\partial G(x, y, r)}{\partial x} = 0$
@@ -290,7 +439,8 @@ $g:V \to W$で以下を満たすものが作れる
 - $\frac{\partial G(x, y, r)}{\partial r} = - g(x, y)$より,
   $\frac{\partial G(x, y, r)}{\partial r} = 0$は$(x ,y) \in U$を意味している.
 
-## 証明その1 極小値となる条件
+
+証明その1 極小値となる条件
 - $\frac{\partial f(x, y)}{\partial y} \neq 0$の時、陰関数定理から
   $f(x, y) = 0$は$y = g(x)$とかけるので、
   極小となるのは$F'(a, g(a)) = 0$となる時
@@ -302,7 +452,7 @@ $g:V \to W$で以下を満たすものが作れる
 - この$a, g(a), r$がほしい条件を満たすことを示す.
 
 
-## 証明その2 $G$の偏微分への変換
+証明その2 $G$の偏微分への変換
 - $r= \frac{\partial F(a, g(a))}{\partial y} \frac{\partial f(a, g(a))}{\partial y}^{-1}$より
   - $\frac{f(a, g(a))}{\partial x} \neq 0$の時, $r= \frac{\partial F(a, g(a))}{\partial x} \frac{\partial f(a, g(a))}{\partial x}^{-1}$
   - $\frac{f(a, g(a))}{\partial x} = 0$の時, 条件式より$\frac{\partial F(a, g(a))}{\partial x} = 0$となる.
@@ -311,7 +461,7 @@ $g:V \to W$で以下を満たすものが作れる
   - $\frac{\partial G(a, g(a), r)}{\partial x} = \frac{F(a, g(a))}{\partial x} - r \frac{f(a, g(a))}{\partial x} = 0$
   - $\frac{\partial G(g, g(a), r)}{\partial r} = f(a, g(a)) = 0$
 
-## 一般化
+一般化
 - $F: \mathbb{R}^{n+m} \to \mathbb{R}$
 - $f: \mathbb{R}^{n+m} \to \mathbb{R}^m$とする.
 - $U := \\{ (x,y) \in \mathbb{R}^{n+m} \mid f(x,y) = 0\\}$とする。
@@ -322,15 +472,16 @@ $(a, b) \in U$で$F$が$U$上極小値となる時、以下のいずれかが成
   - $\frac{ \partial (F - r f)}{\partial x_i} = 0$
   - $\frac{ \partial (F - r f)}{\partial r} = 0$
 
-## 幾何的な意味
+ラグランジュの未定定数法の幾何的な意味について触れておく.
 - 極値となる時$F$と$f$の接平面が一致ししている。
 - $x$方向に動こうとすると$y$方向も自動で動き,そのずれが消える.
 - つまり自由度を制限されるからうまく調整してくれる
 - $U$のように範囲を制限
   - 等式制約　→ 自由度が制限.
   - 不等式制約 → 自由度が制限されない.
-
-## KKT条件(不等式制約)
+  
+KKT条件(不等式制約)
+ラグランジュの未定定数法は
 - $F: \mathbb{R}^{n} \to \mathbb{R}, f: \mathbb{R}^{n} \to \mathbb{R}^m$, $g: \mathbb{R}^{n} \to \mathbb{R}^k$
 - $F,f, g$は連続微分可能
 - $U := \\{(x,y) \in \mathbb{R}^{n+m} \mid f(x) = 0, g(x) \le 0\\}$とする。
@@ -340,34 +491,32 @@ $(a, b) \in U$で$F$が$U$上極小値となる時、以下のいずれかが成
   - $\frac{ \partial (F - r f)}{\partial x_i} = 0$
   - $\frac{ \partial (F - r f)}{\partial r} = 0$
 
-## ラグランジュ・KKTまとめ
-- 制約条件付つき最適化の半的方法
-- 制約条件なしの世界に帰着
-- 帰着する時に現れる条件を記述
+\begin{rem}
+ラグランジュ・KKTまとめ
+\begin{itemize}
+\item 制約条件付つき最適化の基本的な方法
+\item 制約条件なしの世界に帰着
+\item 帰着する時に現れる条件を記述
+\end{itemize}
+\end{rem}
 
-
-## ラグランジュの未定乗数法の演習
-- $f(x, y) = y^2 - x^3$
-- $F(x, y) = x + y^2$
-
+\begin{epl}
+$f(x, y) = y^2 - x^3$,$F(x, y) = x + y^2$とする.
 この時、$f(x, y) = 0$となる$U$上で$F$の極小値を一つ求める.
+\end{epl}
 
-- $f(x, y)  = 0$を変形すると$x^3 = y^2 \ge 0$
-- $x \ge 0$より,$x = y =0$が最小となる.
-- 実際$f(0, 0) = 0$で制約を満たす.
-- $\frac{\partial f(x, y)}{\partial x} = \frac{\partial f(x, y)}{\partial y} = 0$
+$f(x, y)  = 0$を変形すると$x^3 = y^2 \ge 0$.
+$x \ge 0$より,$x = y =0$が最小となる.
+実際$f(0, 0) = 0$で制約を満たす.
+$\frac{\partial f(x, y)}{\partial x} = \frac{\partial f(x, y)}{\partial y} = 0$
 
-
-## 演習その2
-$f(x, y) = y^2 + x^2 - 1, F(x, y) = xy$
-- $\frac{\partial F(x, y)}{\partial x} = \frac{\partial F(x, y)}{\partial y} = 0$は$y = x =0$となるため,条件を満たさず.
-- $\frac{\partial G(x, y, r)}{\partial x} = y + 2xr = 0, \frac{\partial G(x, y, r)}{\partial y} = x + 2yr = 0$
-- $\frac{\partial G(x, y, r)}{\partial r} = y^2 + x^2 - 1 = 0$
-- $r$を消すと$- y /2x = x/ 2y$となるので,$x^2 = y^2 = 1/2$となる。
-
-- $f$が有界閉なので、最大値、最小値を持つ。
-- なめらかなので最小値は極小値に、最大値は極大値になる。
-
+\begin{epl}
+$f(x, y) = y^2 + x^2 - 1, F(x, y) = xy$の最小値を求める.
+\end{epl}
+$\frac{\partial F(x, y)}{\partial x} = \frac{\partial F(x, y)}{\partial y} = 0$は$y = x =0$となるため,条件を満たさず.
+$\frac{\partial G(x, y, r)}{\partial x} = y + 2xr = 0, \frac{\partial G(x, y, r)}{\partial y} = x + 2yr = 0$,これより$\frac{\partial G(x, y, r)}{\partial r} = y^2 + x^2 - 1 = 0$となり,$r$を消すと$- y /2x = x/ 2y$となるので,$x^2 = y^2 = 1/2$となる。
+$f$が有界閉なので、最大値、最小値を持つ.
+なめらかなので最小値は極小値に、最大値は極大値になる.
 よって$x = - y = \pm \frac{1}{\sqrt{2}}$が極小となる.
 
 \section{リーマン積分}
