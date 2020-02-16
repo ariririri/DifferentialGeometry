@@ -1,0 +1,558 @@
+\part{多変数の微分}
+\section{多変数の微分でよく扱われるトピック}
+多変数の微分で説明することを概観する.
+一変数でも多変数でも調べたいものは基本的には変わらない.
+微分は関数の一次元的な近似となるため,それを用いた関数の近似や関数の最大最小を調べる.
+しかし,多変数になることで微分が多様化する.例えば一次元の場合は曲線に対して接線を求める操作であるが,
+多変数の場合は曲面に対する一次近似を考えることになる.それは接平面と思うべきか,
+あるいは一次元に制限して接線と思うかによって等設定方法がいくつかある.
+また陰関数の概念を用いて、曲線や曲面上の関数の極大極小等を調べる.
+項目を箇条書きすると以下のようになる.
+
+\begin{itemize}
+  \item  多変数の場合の微分のクラス
+  \item  多変数の場合の微分を用いた関数の近似
+  \item  多変数の合成関数の微分
+  \item  陰関数定理/逆関数定理
+  \item  多変数の極大値、極小値
+\end{itemize}
+
+\section{多変数の場合の微分のクラス}
+\begin{itemize}
+\item 偏微分
+\item 方向微分
+\item 全微分
+\item 全ての方向で偏微分可能
+\item 連続微分
+\end{itemize}
+
+一変数関数$f$の微分の定義は以下であった.
+\begin{equation*}
+\lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+\end{equation*}
+これを$x, h$共に多変数にすることはできない.
+一変数の場合と違い$h$で割ることができないためである.
+そこで,多変数の場合の微分を一変数の微分と整合性が取れるように定義したい.
+基本的な方針としては2つ方向がある.
+それは$h$を実数の元として$f(x+h)$を意味を持つようにすることである.
+もう一つが分母の$h$を変更して一次元的なものにすることである.
+
+\subsection{方向微分}
+最初は$f(x+h)$を意味を持つようにする方向を考える.
+これで思い浮かぶのは$e \in \mathbb{R}^n$を用い$e$方向の微分を定義することである.
+\begin{dfn}
+$f:\mathbb{R}^n \to \mathbb{R}$とし、$e \in \mathbb{R}^n$とする.
+$x \in \mathbb{R}^n$に対し,
+\begin{equation*}
+  \lim_{h\to0}\frac{f(x + he) - f(x)}{h}
+\end{equation*}
+が存在する時,$f$が$x$で$e$方向に\textbf{方向微分可能}という.
+$e_i = (0, \ldots, 1, \ldots, 0)$とした時,$e_i$方向への微分を特に\textbf{偏微分}といい、$\frac{\partial f}{\partial x_i}$と書く
+\end{dfn}
+
+方向微分を実際にいくつかの例で計算してみる.
+\begin{epl}
+$f: \mathbb{R}^2 \to \mathbb{R}$を
+$f(x, y) = \sin(x+y) + ye^x$で定める.
+$f(0+h, 0+2h) - f(0, 0) = \sin(3h) + 2he^h$となるので,原点での$e = (1 ,2)$方向の方向微分は
+\begin{equation*}
+\lim_{h \to 0} \frac{\sin(3h) + 2he^h }{h} = 3 + 2 = 5
+\end{equation*}
+となる.
+同様に$a = (2, 4)$方向の方向微分は,
+\begin{equation*}
+\lim_{h \to 0} \frac{\sin(6h) + 4he^{2h} }{h} = 6 + 4 = 10
+\end{equation*}
+となる.
+定義に従って計算することもできるが,$2e = a$を用いて変数変換することによっても証明できる.
+\end{epl}
+
+上の結果を見ると,特定の方向微分さえ計算できれば,それの定数倍により,全方向の方向微分が計算できるように思える.
+しかし実際にはそれは正しくない.
+正確に言うとある方向で方向微分ができなくなる場合がある.
+\begin{epl}[どの方向でも偏微分可能だが、ある方向で微分可能でない例]
+$f(x, y)$を以下で定義する.
+\begin{equation*}
+  f(x,y) = \begin{cases}
+  \frac{xy}{x^2 + y^2}  & (x \neq 0, y \neq 0) \\
+  0  & (otherwise)
+  \end{cases}
+\end{equation*}
+この時$e = (1, 1)$を取れば,原点で$e$方向に微分できない.
+また,$e = (1, 0), (0, 1)$の場合はどちらも微分可能.
+\end{epl}
+
+
+\begin{exs}
+上の関数$f(x,y)$に対し,原点では$e = (1, 1)$方向で方向微分できないことを証明せよ.
+同時に$e =(1, 0), (0, 1)$方向の方向微分をできることを示せ.
+\end{exs}
+
+変数の時同様,微分した関数をもう一度微分することを考える.
+\begin{epl}
+$f(x, y) = x^2 + 6xy + y^2$とする.
+この時
+$\frac{\partial f}{\partial x} = 2x + 6y$,
+$\frac{\partial f}{\partial y} = 6x + 2y$
+となり,
+\begin{itemize}
+\item $\frac{\partial^2f}{\partial x \partial x} = 2$
+\item $\frac{\partial^2f}{\partial y \partial x} = 6$
+\item $\frac{\partial^2f}{\partial x \partial y} = 6$
+\item $\frac{\partial^2f}{\partial y \partial y} = 2$
+\end{itemize}
+となる.
+\end{epl}
+この表記は長いため,以降$f_{x_ix_j}$で$\frac{\partial^2f}{\partial x_i \partial x_j}$を表す.
+結果の$\frac{\partial^2f}{\partial y \partial x} = \frac{\partial^2f}{\partial x \partial y}$となることに注意したい.
+一般に以下の条件では偏微分の値が一致する.
+
+\begin{prop}
+$f_{x_ix_j},f_{x_jx_i}$が存在し,どちらも連続な場合,
+$f_{x_ix_j} = f_{x_jx_i}$となる.
+\end{prop}
+\begin{proof}
+  $\phi(x) = f(x +h_je_j) - f(x)$と定め, $g(x)  = f(x+h_ie_i+h_je_j)- f(x+h_ie_i) - f(x+h_je_j) + f(x)$とする.
+\begin{align*}
+g(x) &= \phi(x+h_ie_i) - \phi(x) & (\phi \mbox{の代入})\\
+     &= h_i(\phi_{x_i}(x+t_ie_i))  & (\phi \mbox{の}e_i\mbox{方向の平均値の定理})\\
+     &= h_i f_{x_i}(x+t_ie_i+h_je_j) - f_{x_i}(x+t_ie_i)  & (\phi_{x_i}\mbox{の展開})\\
+     &= h_ih_jf_{x_ix_j}(x+t_ie_i+t_je_j) & (f_{x_i}\mbox{の平均値の定理}) \\
+\end{align*}
+  となるので,平均値の定理から$0 < t_i<h_i,0 < t_j< h_j$となることと$f_{x_ix_j}$の連続性から,
+  $\lim_{h_i,h_j \to 0}f_{x_i,x_j}(x+t_ie_i+t_je_j) = f_{x_i,x_j}(x)$となるので,
+  \begin{equation*}
+  \lim_{h_i, h_j \to 0} \frac{f(x+h_ie_i+h_je_j)- f(x+h_ie_i) - f(x+h_je_j) + f(x)}{h_ih_j} = f_{x_i,x_j}(x)
+  \end{equation*}
+  となる.対称性から,これは$x_i, x_j$を変更しても一致する.
+\end{proof}
+
+
+\begin{rem}
+証明のポイントを述べておく.
+一つは$g(x)$を$f(x+h_ie_i+h_je_j)- f(x+h_ie_i)$に$f(x+h_je_j) + f(x)$分けず,$\phi(x) = f(x +h_je_j) - f(x)$とおいて平均値の定理を用いたことである.
+これにより,$x_i$で微分した時の$x_j$で偏微分したで出てくる$t_j$が一つに定まったことに注意されたい.
+また,仮定である微分した関数の連続性があることから,平均値の等式を極限を評価したこともポイントである.
+\end{rem}
+
+\begin{epl}
+\begin{equation*}
+    f(x, y) = \begin{cases}
+     \frac{x^3y}{x^2 + y^2}  & (x,y) \neq 0 \\
+     0 & otherwise
+   \end{cases}
+\end{equation*}
+は
+\begin{equation*}
+    f_x(x, y) = \begin{cases}
+     \frac{3x^2y}{x^2 + y^2} - \frac{2x^4y}{(x^2 + y^2)^2}  & (x,y) \neq 0 \\
+     0 & otherwise
+   \end{cases}
+\end{equation*}
+よって,$f_{yx}(0, 0) = 0$となる.
+一方で
+\begin{equation*}
+    f_y(x, y) = \begin{cases}
+     \frac{x^3}{x^2 + y^2} - \frac{2x^3y^2}{(x^2 + y^2)^2}  & (x,y) \neq 0 \\
+     0 & otherwise
+   \end{cases}
+\end{equation*}
+となり,
+$f_{xy}(0, 0) = \lim_{h \to 0} \frac{h^3}{h^3} - 0 = 1$となるので,一致しない.
+\end{epl}
+
+導関数が連続であることは一般に非常に強い性質であり,平均値の定理を使うことで以下が成り立つ.
+
+
+\begin{prop}
+$f:\mathbb{R}^n \to \mathbb{R}$で全ての$e_i$方向について微分可能で,微分した関数が連続である時,$f(x,y)$は全ての方向で方向微分可能であり,微分した関数は連続である.
+\end{prop}
+\begin{proof}
+簡単のため$e = ae_1 + be_2$の場合に示す.後は同様である.
+平均値の定理より
+\begin{equation*}
+f(x+ hae_1 + hbe_2) - f(x + hae_1) + f(x+hae_1) - f(x) = hbf_{x_2}(x + hae_1 + t_1be_2) + haf_{x_1}(x+t_2ae_1)
+\end{equation*}
+となり,$f_{x_1}, f_{x_2}$の連続性から,
+\begin{equation*}
+\lim_{h \to 0} \frac{f(x+he) - f(x)}{h} = af_{x_1}(x) + bf_{x_2}(x)
+\end{equation*}
+となる.連続関数の和でかけるので,これは連続関数になる.
+$e = \sum a_i e_i$の場合は$a_1e_1$と$\sum_{i \ge 2} a_i e_i$として,inductionすればよい.
+\end{proof}
+
+\begin{dfn}
+$f:\mathbb{R}^b \to \mathbb{R}$の$k$階まで偏微分可能で偏導関数が全て連続のとき,$C^k$級という.
+\end{dfn}
+
+\begin{prop}
+$f$が$C^k$級の場合,$k$階までの偏導関数は偏微分の順序によらない.
+\end{prop}
+
+\subsection{全微分}
+次に,$h$で割る方について考える.
+それは比較的単純なアイデアとしては$|h|$で割る.
+つまり,以下で定義する.
+\begin{dfn}
+ある$c \in \mathbb{R}^n$が存在し,
+\begin{equation*}
+ \lim_{h \to }\frac{f(x+h) - f(x) - ch}{|h|}  = 0
+\end{equation*}
+となる時$f$は$x$で\textbf{全微分可能}という.
+\end{dfn}
+$c$を左辺に持ってくる必要があることに注意せよ.これは$c \in \mathbb{R}^n$だが,
+微分の定義の左辺は$\mathbb{R}$の元であるため,単純には定義できないためである.
+$c$を右辺に持ってくるのであれば以下のように書くこともできる.
+$x$の十分近い近傍上で$f(x+h)-f(x) = ch + o(|h|)$
+
+この微分の定義が一変数の微分と同じ性質を持つのかや上で定義した方向微分との関連性を考えたい.
+例えば,私は以下の疑問が思い浮かぶ.
+
+\begin{enumerate}
+  \item 微分可能な関数は連続か
+  \item $c$は各方向の方向微分,今回の場合は偏微分と一致するのか
+  \item 特定の方向の方向微分だけしか使っていないようにも見えるが,全方向で方向微分できるのか?
+  \item 逆に全ての方向に対して微分可能だが,全微分できない関数があるか?
+\end{enumerate}
+上の質問に答えていく
+
+\begin{lem}
+$f: \mathbb{R}^n \to \mathbb{R}$が全微分可能であれば,連続.
+\end{lem}
+\begin{proof}
+$f$が$x$で微分可能なので,$\lim_{h \to }\frac{f(x+h) - f(x) - ch}{|h|}  = 0$となる$c \in \mathbb{R}^n$が存在する.
+つまり,$\forall \epsilon > 0$に対し,$|h|$が十分小さい特に1より小さいものが取れて,
+$|\frac{f(x+h) - f(x) - ch}{|h|}| < \epsilon$となる.
+この時$|f(x+h) - f(x) - ch| < \epsilon$であり,$|h| < |c|\epsilon$となるように取れば,
+$|f(x+h) - f(x) < 2\epsilon$となるように取れる.
+よって,連続である.
+\end{proof}
+
+
+\begin{prop}
+  $f$が全微分可能な時,
+  $c_i = \frac{\partial f}{\partial x_i}$となる.
+\end{prop}
+\begin{proof}
+$\forall \epsilon >0$に対し,$|h| < \delta$が存在し,
+$\frac{|f(x+h)-f(x) - ch|}{|h|} < \epsilon$となるので,
+$h = te_i$(i番目が1,それ以外が0)となるベクトルとすると,
+$|t| < \delta$で$\frac{|f(x+te_i)-f(x) - tc\cdot e_i|}{t} < \epsilon$となり,
+$c \cdot e_i = c_i$に注意すると,上の式は$\frac{|f(x+te_i)-f(x) - tc_i|}{t} < \epsilon$
+となるので$c_i$は偏導関数と一致する.
+\end{proof}
+
+
+\begin{prop}
+  $f$が全微分方向である時,任意の方向$e$に対し,方向微分可能.
+\end{prop}
+\begin{proof}
+$\forall \epsilon >0$に対し,$|h| < \delta$が存在し,
+$\frac{|f(x+h)-f(x) - ch|}{|h|} < \epsilon$となるので,
+$h = te$とすると,
+$|t| < \frac{\delta}{|h|}$で$\frac{|f(x+te_i)-f(x) - tc \cdot e|}{t} < \epsilon$となるので,全微分可能.
+これから$e = \sum a_i e_i$とすると$e$方向の方向微分が$\sum c_i a_i$となる.
+\end{proof}
+
+\begin{epl}
+全ての方向に対して微分可能だが,全微分できない関数$f:\mathbb{R}^n \to \mathbb{R}$を構成する.
+\end{epl}
+方向微分はある方向について微分可能なことであったが,全方向に対して方向微分可能な時を\textbf{全微分可能}という.
+これはどんな方向についても滑らかという意味である.
+これは注意するべきことに仮に全てに$i$方向に対して偏微分可能であっても、全方向で微分可能とは限らない.
+
+$f$が連続微分可能とは
+全微分は方向微分よりも真に強い概念として,得られたが,
+
+では,例えば偏微分にどういう性質を仮定すれば,偏微分から微分が導出できるだろうか.
+これを考えれると,連続微分可能という概念が生まれる.
+しかし,またも面倒なことに,連続微分可能だからといって,全微分可能とは限らない.
+\begin{epl}[全微分可能だが、連続微分可能でない例]
+  \begin{equation*}
+   f(x, y)  = \begin{cases}
+   \frac{x^2y}{x^4 + y^2} & (x,y)\neq (0, 0) \\
+    0 & otherwise
+ \end{cases}
+\end{equation*}
+これは$y = x^2$に従って$x \to 0$での極限を考えると$1/2$となる.そのため,連続ではない.
+しかし,各方向微分では微分が計算できる.
+\end{epl}
+\begin{rem}
+1次元的な方向ではどんな方向でも滑らかだが,全体をじぐざぐ動かすと滑らかとは限らないという例である.
+\end{rem}
+
+\begin{prop}
+ $f$が$C^1$級なら全微分可能.
+\end{prop}
+上は演習問題とする.
+ヒント
+$c^k$級なら偏微分からどの方向でも微分が計算できたことを意識して,
+$f(x+h)-f(x) = \sum f(x + h(i+1)) -f(x +h(i))$と変形してして,この差分に対して,平均値の定理を使う.
+$h(i)$は$h$を第$i+1$成分から第$n$成分までを$0$としたもの.
+微分の式を$\frac{\sum h_i (f_{x_i}(x + \tilde{h}_i) - f_{x_i}(x))}{|h|}$となるので,
+$h_i$と$|h|$との関係を使うためにコーシーシュワルツで不等式評価すれば,言える.
+
+\subsection{Taylorの定理と平均値の定理}
+上では一次近似のための条件が複数あることを見た.
+ここでは高次の近似,つまりTaylorの定理がいつ成り立つかについて調べる.
+- 平均値の定理
+- テイラー展開
+
+
+\subsection{合成関数の微分と微分形式}
+
+- 変数変換とヤコビ行列
+- 微分形式
+  一変数の繰り返しと思うだけ.
+
+n次微分形式とは
+
+
+\begin{exs}
+  \begin{itemize}
+    \item 多変数関数の微分(合成関数の微分)
+    \item 多変数のTaylor展開
+  \end{itemize}
+\end{exs}
+
+
+\subsection{陰関数と極大極小}
+今まで$y=f(x)$という関数を調べてきた.
+これは式変形をすると$f(x)-y =0$の方程式を求めていることになる.
+微分の一つ強みとして関数の極値を判定できるというものがある.
+そこで,ここでは実際に関数をいくつかの条件で最適化できるかを調べたい.
+ラグランジュの未定乗数法
+KKT条件
+
+\begin{rem}
+ 最適化の文脈では.以下に対応する.
+ (不)等式制約条件下での局所解について調べる
+\begin{itemize}
+  \item 等式-> ラグランジュ
+  \item 不等式 -> KKT条件
+\end{itemize}
+\end{rem}
+
+一変数の場合の局所最適化を考える.
+\begin{epl}
+条件
+$F(x) = x^2$,$f(x) = x$とする.
+$f(x) \le 3$で$F(x)$が極小となる$x$を求める.
+
+すぐわかるように,$x = 0$条件がない場合も同じ.
+\end{epl}
+一変数の場合は比較的簡単にできる.
+
+二変数の場合の局所最適化
+- 条件
+  - $F(x, y) = x^2 + y^2$
+  - $f(x, y) = x + y$
+- $f(x ,y) = 0$のときの局所解
+  - $F(x , y) = x^2 + (-x)^2$より
+  - $x = 0$となる時が最小
+
+すぐわかることて
+\begin{itemize}
+  \item $f(x, y) = 0$となる解が具体的に書き下せると簡単に解ける.
+  \item  $f(x ,y) = 0$が具体的に書き下せるか判定したい.
+\end{itemize}
+
+実は$f(x,y) = 0$で定められるものには以下のような名前がついている.
+\begin{dfn}
+陰関数とは$f(x, y) = 0$で表せるもののこと
+\end{dfn}
+
+陰関数という名前に注意をしてほしいのだが,
+陰関数は一般には関数とは限らない.
+実際ある$x$に対して、条件を満たす$y$が一つに定まるとは限らないため,関数と表せるとは限らない.
+
+\begin{epl}
+$f(x , y) = x^2 + y^2 = 1$は関数としては表せない
+\end{epl}
+
+上の話は陰関数は完全には関数として表せないという話であった.
+では,陰関数はどういう場合に関数として書き表すことができるかが自然に気になる.
+関数とかけるかどうかはかなり難しいが,実は局所的には簡単に判別することができる.
+それが陰関数定理である.
+
+\begin{thm}
+$f(x ,y)$は連続微分可能であり,$(a, b)$で$f(a , b) = 0$であり,
+$\frac{\partial f(x, y)}{\partial y} \neq 0$とする.
+この時$V = (a - \delta, a + \delta),W = (b - \epsilon , b + \epsilon)$が存在し,
+$g:V \to W$で以下を満たすものが作れる.
+\begin{itemize}
+  \item $g(x) = y$と$f(x, y) = 0$は同値
+  \item $g(x)$は微分可能
+  \item $g'(x) = - \frac{\partial f}{\partial x} \cdot \frac{\partial f}{\partial y}^{-1}$
+\end{itemize}
+\end{thm}
+この証明はかなり長いので、いくつかに分解して行う.
+
+方針としては以下の通りである.
+
+\begin{enumerate}
+    \item 該当する点の近傍の符号を調べる
+    \item 該当の近傍上でほしい関数gを具体的に構成する.
+    \item 関数$g$の微分を調べるための道具を整備
+    \item 関数$g$の微分を計算
+\end{enumerate}
+
+1. 該当する点の近傍の符号を調べる
+- $\frac{\partial f}{\partial y}(a, b) > 0$とする.
+- $\frac{\partial f}{\partial y}$の連続性より$\exists  \epsilon y \in (b - \epsilon, b + \epsilon)$で$\frac{\partial f}{\partial y}(a, y) > 0$となり、
+  - $f(a, b + \epsilon) > 0$
+  - $f(a, b - \epsilon) < 0$
+- 同様に$(a - \delta, a + \delta)$で以下となるように$\delta$が取れる
+  - $f(a - \delta, b + \epsilon) > 0$
+  - $f(a + \delta, b + \epsilon) > 0$
+  - $f(a - \delta, b - \epsilon) < 0$
+  - $f(a + \delta, b - \epsilon) < 0$
+
+証明 その2 近傍上でのgの構成
+- $x \in (a - \delta, a + \delta), y \in (b - \epsilon, b + \epsilon)$に対し$\frac{\partial f}{\partial y}(x, y) > 0$とできる.
+  - 必要なら$\delta, \epsilon$をさらに小さく取る.
+- $x_0 \in [a - \delta, a + \delta]$に対し,
+  - $f(x_0, y)$は$y$方向に単調増大
+  - $f(x_0, b + \epsilon) > 0$
+  - $f(x_0, b - \epsilon) < 0$
+- $f(x_0, y_0) = 0$となる$y_0$がただ一つ存在する.
+- $g(x_0):= y_0$とする.
+- 他にこの近くに$f(x_0, y) = 0$となる$y$はない.
+
+
+証明 その3 微分の計算の準備
+- $g(x_0) = y_0, g(x_0 + h) = y_0 + \ell$とする.
+  - $f(x_0, y_0) = f(x_0 + h, y_0 + \ell) = 0$
+- $\frac{g(x_0 + h) - g(x_0)}{h} = \ell / h$となる.
+- $\lim_{h \to 0} \ell / h$を求めれば良い.
+- 今$f$の連続性より,$h \to 0$の時,$\ell \to 0$となる.
+- 平均値の定理(次で使う)
+  - $F(x)$は閉区間$[x, x+h]$で連続
+  - 開区間$(x, x + h)$で微分可能
+  - この時$0 \le \epsilon \le h$が存在し
+  $$F(x+h) - F(x) = hF'(x+ \epsilon)$$
+
+証明 その4 微分の計算
+- $f(x_0 + h, y_0 + \ell) - f(x_0 + h, y_0) + f(x_0+ h, y_0) - f(x_0, y_0) = 0$
+- 平均値の定理より
+  - $f(x_0 + h, y_0 + l) - f(x_0 + h, y_0) = \ell \frac{\partial f}{\partial y}(x_0 + h, y_0 + \epsilon)$
+  - $f(x_0+ h, y_0) - f(x_0, y_0) = h \frac{\partial f}{\partial x} (x_0 + \delta ,y_0)$
+- 上と合わせると$\ell \frac{\partial f}{\partial y}(x_0 + h, y_0 + \epsilon) + h \frac{\partial f}{\partial x }(x_0 + \delta ,y_0) = 0$より
+- $\ell / h = - \frac{\partial f}{\partial y}(x_0 + h, y_0 + \epsilon)^{-1} \frac{\partial f}{\partial x}\delta (x_0 + \delta ,y_0)$
+- 偏微分の連続性より
+
+  $$\lim_{h \to 0} \frac{\ell}{h} = - \frac{\partial f}{\partial y}(x_0, y_0)^{-1} \frac{\partial f}{\partial x} (x_0, y_0)$$
+
+
+\begin{rem}
+陰関数定理の特徴を改めてまとめておくと以下のようになる.
+\begin{itemize}
+\item $(a, b)$で偏微分が0でなければ,$x$だけの関数として表せる.
+\item $(a, b)$ごとに$g$は変わりうる.
+\item $g'(x)$は$f$の偏微分で書ける.
+\end{itemize}
+\end{rem}
+
+\begin{thm}
+ラグランジュの未定乗数法
+$f(x ,y) = 0$となる$x, y$全体を$U$とする.
+$F(x, y)$が連続微分可能で$(a, b) \in U$が$U$上で$F(a, b)$が極小値とすると
+  以下のいずれかが成り立つ.
+ \begin{itemize}
+  \item $\frac{\partial f(x, y)}{\partial x} = \frac{\partial f(x, y)}{\partial y} = 0$
+  \item $G(x, y, r) = F(x, y) - r f(x, y)$に対し
+  \begin{itemize}
+    \item $\frac{\partial G(x, y, r)}{\partial x} = 0$
+    \item $\frac{\partial G(x, y, r)}{\partial y} = 0$
+    \item $\frac{\partial G(x, y, r)}{\partial r} = 0$
+  \end{itemize}
+ \end{itemize}
+\end{thm}
+証明をする前にこの定理がいう内容を少し具体的に紹介したい.
+- $x, y$を必要なら置き換えることで$\frac{\partial f(x, y)}{\partial y} \neq 0$の時、
+  以下が言えればよい
+  - $\frac{\partial G(x, y, r)}{\partial x} = 0$
+  - $\frac{\partial G(x, y, r)}{\partial y} = 0$
+  - $\frac{\partial G(x, y, r)}{\partial r} = 0$
+- $\frac{\partial G(x, y, r)}{\partial r} = - g(x, y)$より,
+  $\frac{\partial G(x, y, r)}{\partial r} = 0$は$(x ,y) \in U$を意味している.
+
+
+証明その1 極小値となる条件
+- $\frac{\partial f(x, y)}{\partial y} \neq 0$の時、陰関数定理から
+  $f(x, y) = 0$は$y = g(x)$とかけるので、
+  極小となるのは$F'(a, g(a)) = 0$となる時
+- $\displaystyle \lim_{h \to 0}$ $\frac{F(a + h, g(a+h)) - F(a+h, g(a)) + F(a+h, g(a)) - F(a,g(a))}{h}$
+  $= \frac{\partial F(a, g(a))}{\partial y} g'(a) + \frac{\partial F(a, g(a))}{\partial x}$
+  $= \frac{\partial F(a, g(a))}{\partial y} \frac{\partial f(a, g(a))}{\partial x} \frac{\partial f(a, g(a))}{\partial y}^{-1} + \frac{\partial F(a, g(a))}{\partial x} = 0$
+- $r$の設定
+  $r= \frac{\partial F(a, g(a))}{\partial y} \frac{\partial f(a, g(a))}{\partial y}^{-1}$
+- この$a, g(a), r$がほしい条件を満たすことを示す.
+
+
+証明その2 $G$の偏微分への変換
+- $r= \frac{\partial F(a, g(a))}{\partial y} \frac{\partial f(a, g(a))}{\partial y}^{-1}$より
+  - $\frac{f(a, g(a))}{\partial x} \neq 0$の時, $r= \frac{\partial F(a, g(a))}{\partial x} \frac{\partial f(a, g(a))}{\partial x}^{-1}$
+  - $\frac{f(a, g(a))}{\partial x} = 0$の時, 条件式より$\frac{\partial F(a, g(a))}{\partial x} = 0$となる.
+- $G$の偏微分の計算は
+  - $\frac{\partial G(a, g(a), r)}{\partial y} = \frac{F(a, g(a))}{\partial y} - r \frac{f(a, g(a))}{\partial y} = 0$
+  - $\frac{\partial G(a, g(a), r)}{\partial x} = \frac{F(a, g(a))}{\partial x} - r \frac{f(a, g(a))}{\partial x} = 0$
+  - $\frac{\partial G(g, g(a), r)}{\partial r} = f(a, g(a)) = 0$
+
+一般化
+- $F: \mathbb{R}^{n+m} \to \mathbb{R}$
+- $f: \mathbb{R}^{n+m} \to \mathbb{R}^m$とする.
+- $U := \\{ (x,y) \in \mathbb{R}^{n+m} \mid f(x,y) = 0\\}$とする。
+
+$(a, b) \in U$で$F$が$U$上極小値となる時、以下のいずれかが成り立つ
+- $f$のJacobi行列のrankが$m$以下
+- $f$のJacobi行列のrankが$m$の時
+  - $\frac{ \partial (F - r f)}{\partial x_i} = 0$
+  - $\frac{ \partial (F - r f)}{\partial r} = 0$
+
+ラグランジュの未定定数法の幾何的な意味について触れておく.
+- 極値となる時$F$と$f$の接平面が一致ししている。
+- $x$方向に動こうとすると$y$方向も自動で動き,そのずれが消える.
+- つまり自由度を制限されるからうまく調整してくれる
+- $U$のように範囲を制限
+  - 等式制約　→ 自由度が制限.
+  - 不等式制約 → 自由度が制限されない.
+
+KKT条件(不等式制約)
+ラグランジュの未定定数法は
+- $F: \mathbb{R}^{n} \to \mathbb{R}, f: \mathbb{R}^{n} \to \mathbb{R}^m$, $g: \mathbb{R}^{n} \to \mathbb{R}^k$
+- $F,f, g$は連続微分可能
+- $U := \\{(x,y) \in \mathbb{R}^{n+m} \mid f(x) = 0, g(x) \le 0\\}$とする。
+- $g(x)$内で等式制限に変換できるものはないとする。
+
+この時正則な点$(a,b) \in U$で極小値となる時
+  - $\frac{ \partial (F - r f)}{\partial x_i} = 0$
+  - $\frac{ \partial (F - r f)}{\partial r} = 0$
+
+\begin{rem}
+ラグランジュ・KKTまとめ
+\begin{itemize}
+\item 制約条件付つき最適化の基本的な方法
+\item 制約条件なしの世界に帰着
+\item 帰着する時に現れる条件を記述
+\end{itemize}
+\end{rem}
+
+\begin{epl}
+$f(x, y) = y^2 - x^3$,$F(x, y) = x + y^2$とする.
+この時、$f(x, y) = 0$となる$U$上で$F$の極小値を一つ求める.
+\end{epl}
+
+$f(x, y)  = 0$を変形すると$x^3 = y^2 \ge 0$.
+$x \ge 0$より,$x = y =0$が最小となる.
+実際$f(0, 0) = 0$で制約を満たす.
+$\frac{\partial f(x, y)}{\partial x} = \frac{\partial f(x, y)}{\partial y} = 0$
+https://www.overleaf.com/project/5be7c0412dcd4b3c6e9f68ac
+\begin{epl}
+$f(x, y) = y^2 + x^2 - 1, F(x, y) = xy$の最小値を求める.
+\end{epl}
+$\frac{\partial F(x, y)}{\partial x} = \frac{\partial F(x, y)}{\partial y} = 0$は$y = x =0$となるため,条件を満たさず.
+$\frac{\partial G(x, y, r)}{\partial x} = y + 2xr = 0, \frac{\partial G(x, y, r)}{\partial y} = x + 2yr = 0$,これより$\frac{\partial G(x, y, r)}{\partial r} = y^2 + x^2 - 1 = 0$となり,$r$を消すと$- y /2x = x/ 2y$となるので,$x^2 = y^2 = 1/2$となる。
+$f$が有界閉なので、最大値、最小値を持つ.
+なめらかなので最小値は極小値に、最大値は極大値になる.
+よって$x = - y = \pm \frac{1}{\sqrt{2}}$が極小となる.

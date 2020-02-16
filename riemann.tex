@@ -1,0 +1,75 @@
+\section{リーマン積分}
+\begin{itemize}
+\item リーマン積分の定義
+\item 不定積分
+\item 微積分学の基本定理
+\item リーマン積分可能だが、積分できない例
+\item ダルブーの定理
+\item 重積分
+\item 線積分
+\item 面積分
+\end{itemize}
+
+日本の高校数学では積分は微分の逆として定義される.
+\begin{equation*}
+ F'(x) = f(x)
+\end{equation*}
+となる時$F(x)$を$\int f(x)$と表す.
+
+リーマン積分の定義をする.
+高校では定積分と呼ばれているものである.
+高校の時に定積分を用いて図形の面積を求めていたことを思い出していただきたい.
+この図形の面積をイメージして,定義する.
+定義の方針は2つ.
+\begin{itemize}
+  \item よく知られている基本的なものに対する体積を定義.
+  \item より一般の図形に対する体積を定義
+\end{itemize}
+
+高校数学でも長方形の面積を元に図形の面積を比較していたこと思い出そう.
+そこで,今回は長方形のより一般には直方体に対する体積を定義する.
+\begin{itemize}
+  \item $I_i = [a_i, b_i]$とし直方体$I_1 \times  \ldots, I_n \subset \mathbb{R}^n$に対してその体積$v(I)$を以下で定義する.
+  \begin{equation*}
+  v(I) := \prod_i (b_i - a_i)
+  \end{equation*}
+\end{itemize}
+
+ではこれをを元に関数$f:U \to \mathbb{R}$に対する面積を定義したい.
+方針としては単純で$I$をとても細かく区切った時に$I$の間ずっと$f$以下であったものたちで作る直方体の体積と$f$以上であってものたちで作る直方体の体積が一致することである.
+これを数学的にきちんと定義するには以下を明らかにする必要がある.
+\begin{itemize}
+  \item $I$を細かく区切る
+  \item 直方体の体積の評価
+\end{itemize}
+まず細かく区切る方であるが,
+$I$に対し,内点を共有しない有限個の直方体で$I = \cup I_k$と表せるとき,これを$I$の\textbf{分割}という.
+$I$の分割全体を$\mathcal{D}(I)$とする.
+$d(I_k)$を$I_k$を直径,つまり,2頂点間の距離の最大値とする.
+さらに
+\begin{equation*}
+d(\Delta):= Max_{I_k \in \Delta}(d(I_k))
+\end{equation*}
+と定める.分割を細かくしていく時は上に定義した,$d(\Delta)$を小さくする.
+
+では直方体の体積をどう評価するかを考える.
+図形の面積を下限と上限で評価することをイメージしてほしい.
+つまり分割$\Delta$と$\Delta$の要素$I_k$に対し,$\xi_k \in I_k$をとり,
+\begin{equation*}
+S(f, \Delta, \xi):= \sum_{k \in K(\Delta)} f(\xi_k)v(I_k)
+\end{equation*}
+とする.
+これはどこか適当な点を選ぶ。そのため,単純に大小比較は難しいが
+分割を細かくすることにより特定の値に近づきそうであることは想像してほしい.
+
+ここまできてようやくリーマン積分の定義となる.
+
+
+\begin{screen}
+\begin{dfn}
+\begin{equation*}
+\lim_{d(\Delta) \to 0} S(f, \Delta, \xi):= \sum_{k \in K(\Delta)} f(\xi_k)v(I_k) = J
+\end{equation*}
+が存在する時,$f$は$I$で\textbf{リーマン積分可能}といい,$J$を$I$の\textbf{リーマン積分}という
+\end{dfn}
+\end{screen}
