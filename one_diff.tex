@@ -3,8 +3,9 @@
 定義から始まり、基本的な性質を調べる.
 代数的な性質,位相的な性質,合成関数の微分法,積の微分法を説明し,
 それらを元に初等的な関数の微分を記述する.
-\section{微分の初等的な性質}
+\section{微分の定義と初等的な性質}
 
+\begin{screen}
 \begin{dfn}[微分]
 ある関数$f:U \to \mathbb{R}$に対し,
 $x=a$で\textbf{微分可能}とは,
@@ -13,8 +14,10 @@ $x=a$で\textbf{微分可能}とは,
 \end{equation*}
 が存在することである.
 上の極限を$f'(a)$とかき,$f(x)$の$x=a$での\textbf{微分}という.
-極限の存在はある値$b$が存在し,$\forall \epsilon > 0$に対しある$\delta > 0$をうまく取ると$|x - a| < \delta$となる全ての$x$に対し,$\frac{f(x) - f(a)}{x-a} - b| < \epsilon$が成り立つことを意味する.
+極限の存在はある値$b$が存在し,$\forall \epsilon > 0$に対しある$\delta > 0$をうまく取ると$|x - a| < \delta$となる全ての$x$に対し,$|\frac{f(x) - f(a)}{x-a} - b| < \epsilon$が成り立つことを意味する.
 \end{dfn}
+\end{screen}
+
 
 上の定義は関数が一点で微分可能かどうかを定義したものである.
 つまり,上の定義では関数と点の組に対して,微分可能かを判定させる.
@@ -113,14 +116,32 @@ $f$が$(a,b)$上微分可能な時,$f$は$(a,b)$上連続となる.
 $f(x) - f(a) = (x-a) \frac{f(x) - f(a)}{x -a}$より,$\lim_{x \to a}f(x) - f(a) = 0$となる.
 \end{proof}
 
+\begin{thm}
+\begin{itemize}
+  \item $a \in \mathbb{R}$に対し,$af(x)$は微分可能
+  \item $f(x) + g(x)$は微分可能
+\end{itemize}
+\end{thm}
+
+\begin{thm}
+  $f(x), g(x)$が微分可能な時,$f(x)\cdot g(x)$は微分可能.
+\end{thm}
+$f(x+h)g(x+h) - f(x)g(x) = f(x+h)g(x+h) - f(x)g(x+h) + f(x)g(x+h) - f(x)g(x)$と変形する.
+\begin{equation*}
+\frac{(x+h)g(x+h) - f(x)g(x)}{h} = \frac{f(x+h)g(x+h) - f(x)g(x+h)}{h} + \frac{f(x)g(x+h) - f(x)g(x)}{h}
+\end{equation*}
+となり,$\frac{f(x+h)g(x+h) - f(x)g(x+h)}{h}, \frac{f(x)g(x+h) - f(x)g(x)}{h}$は$h \to 0$の時に収束するので,
+よって,
+\begin{equation*}
+  (f \cdot g)' = f'g + g f'
+\end{equation*}
+となる.
 
 \begin{thm}[合成関数の微分]
   $g(x)$が微分可能であり.$f(x)$が微分可能であれば,
-
   \begin{equation*}
     \frac{f\circ g (x) - f\circ g (a)}{x-a} = f'(g(a))g'(a)
   \end{equation*}
-
 となる.
 \end{thm}
 
@@ -140,61 +161,6 @@ $y = f(x)$に対し,$y \mapsto x$となる関数
 \end{dfn}
 
 
-\begin{epl}[指数関数と対数関数]
-$3 \to 2^3$とすると$2^3 \to 3$となる関数.
-
-この時$g(y+h) - g(y)/h$とする。
-この時,$f(x) = y,f(x+l) = y+h$とすると
-$h = f(x+l) - f(x)$であり$g(y+h) = x +l,g(y) = x$となる.
-
-これより$x+l - l /f(x+l) - f(x)$となるので,
-$1/f'(x)$となる.ただし$f(x) = y$となる.
-\end{epl}
-
-
-\begin{prop}[三角関数の微分]
-$1-\cos x/x^2 = \lim (1 - \cos x)(1 + \cos x)/x^2 ...$
-
-$sin'x =cosx$
-$cos'x = - sinx$
-$tan'x = 1/ cos^2x$
-\end{prop}
-
-
-\begin{prop}[対数関数の微分]
-$\log_a(x+h) - \log_a(x)/h = \log_a(1+h/x)/h$
-h/x=tとすると $ 1/x \log_a(1+t)/t$
-となる.なのでこの値次第.
-\end{prop}
-
-
-実は
-$\lim_{h \to 0} (1 +h)^{1/h}:=e$という値になる.
-eの存在証明は飛ばすんですが、与太話をする。
-
-\begin{rem}
-こうした未知の概念んが出てきた時はそのイメージを掴むために適切な疑問を持つことが重要である.
-例えばあたらいし概念に出会った時に最低限気にすることは以下である.
-\begin{itemize}
-  \item 定義として矛盾していないか
-  \item 存在するか
-  \item 存在ならば一つか?
-  \item 存在する場所は制限できるか?
-  \item 簡単に定理が成り立つ例が見つかるか?
-  \item どういう性質を持つか.
-\end{itemize}
-\end{rem}
-
-
-\begin{prop}[指数関数の微分]
-逆関数の微分を使い
-指数関数の微分をする.
-$y= a^x$,$y= log_ax$
-$dx/dy = 1/y \log_ae$なので,$a^x/\log_ae$が求める値になる.
-logy = alogx
-\end{prop}
-
-これで初等的な関数の微分は全て終わる.
 
 \section{関数の近似}
 上の章では具体的に記述できる関数とそれらの合成や積で表せる関数に対して,具体的に計算できることを記述した.
@@ -205,18 +171,123 @@ logy = alogx
 \begin{thm}[ロルの定理]
 関数$f: \mathbb{R} \to \mathbb{R}$が$[a, b]$上連続で$(a, b)$上連続とする.さらに$f(a) = f(b)$であれば,$f'(c) = 0$となる$c \in (a,b)$が存在する.
 \end{thm}
-非常に重要な定理である
+$f$が定数関数であれば,明らかに存在するので,$f$が定数関数でない時に示す.
+この時$x \in (a,b)$で$f(x) \neq f(a)$となるものが存在する.
+今$f(x) > f(a)$とする.
+$[a, b]$上連続な関数はある点$c \in [a, b]$で最大値が存在するが,$f(x) > f(a)$より,$c \in (a, b)$となる.
+よって,この点では微分可能であり,最大値を取るため,$f'(C) = 0$となる.
+$f(x) < f(a)$の時も同様に示せる.
 
 \begin{thm}[平均値の定理]
-
+関数$f: \mathbb{R} \to \mathbb{R}$が$[a, b]$上連続で$(a, b)$上連続とする.
+この時,以下を満たす$(c \in (a, b)$が存在する.
+\begin{equation*}
+  \frac{f(a) - f(b)}{a-b} = f'(c)
+\end{equation*}
 \end{thm}
+\begin{equation*}
+\phi(t) = f(t) -  \frac{f(a) - f(b)}{a- b}(t - b)
+\end{equation*}
+とする.この時,$\phi(a) = f(b), \phi(b) = f(b)$で,$[a, b]$上連続,$(a, b)$上微分可能なので,
+ロルの定理を使うと
+ある$c \in (a, b)$が存在し,$\phi'(c) = 0$となる,
+これを変形すると,
+\begin{equation*}
+  \frac{f(a) - f(b)}{a-b} = f'(c)
+\end{equation*}
+となる.
+
+\begin{rem}
+  平均値の定理は多変数関数では成り立つとは限らない.
+  それは$f_i(b) - f_i(a) = (f'_i(c_i))(b-a)$となるが$i$毎に$c_i$が異なるため,まとめてかけるとは限らないからである.
+\end{rem}
+
+しかし,以下の定理は多変数であっても成り立つ.
+\begin{thm}
+  以下は同値である.
+  $f:I \to \mathbb{R}^n$で$I$の内側で全て微分可能であり,$I$上連続する時,
+  \begin{itemize}
+    \item $f'(x) = 0$となる.
+    \item $f(x)$は定数関数.
+  \end{itemize}
+\end{thm}
+\begin{proof}
+$f'(x) = 0$であれば
+平均値の定理より,$f(t) - f(a) = f'(x)$となるが,$f'(x) = 0$より,$f(x) = f(a)$となる.
+逆は明らか.
+\end{proof}
+
+上の結果でもわかるように平均値の定理は2つのものを近似する時にその間のずれが発生する.
+しかし,うまく工夫をすればそれを回避できる場合がある.
+
+\begin{thm}[Cauchyの平均値の定理]
+$g(b) \neq g(a)$で$\forall x \in (a,b)$上で$f'(x) \neq 0$か$g'(x) \neq 0$が成り立つとする.
+この時,ある$c \in (a,b)$が存在し,
+\begin{equation*}
+  \frac{f(x) - f(a)}{g(x) - g(a)} = \frac{f'(c)}{g'(c)}
+\end{equation*}
+となる.
+\end{thm}
+\begin{proof}
+$\phi(x) = (g(b) - g(a))f(x) - (f(b) - f(a)g(x)$とする.
+この時,$\phi(a) = f(a)g(b) - f(b)g(a)$,$\phi(b) = -f(b)g(a) + f(a)g(b)$となるので,ロルの定理より
+ある$c \in (a,b)$で,$(g(b) - g(a))f'(c) - (f(b) - f(a))g'(c) = 0$となる.
+今$f'(c),g'(c)$のいずれかは0でないため,$g'(c) = 0$とすると,$g(a) \neq g(b)$と合わせると$f'(c) = 0$となるので,
+$g'(c) \neq 0$となることがわかる.
+よって,両辺を$g'(c)(g(b) - g(a)$で割ることで求める等式が得られた.
+\end{proof}
+
+
+
+上の定理は関数の差を微分を使って評価した.
+これは変形すると$f(a) = f'(c)(a-b) + f(b)$となる.
+$c \in (a,b)$より, $c = b + t(a-b)$とかける.
+これより,$f(a) = f'(b + t(a-b))(a-b) + f(b)$となる.
+これは高次元に一般化する.
+
 
 \begin{thm}[テイラーの定理]
-
+$f$が$[a, b]$で$n$階微分可能な時
+\begin{equation*}
+  f(x) = f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots + \frac{f^{(n-1)}(a)}{n-1!}(x-a)^{n-1} + R_n(x)
+\end{equation*}
+とした時ある$c \in I$が存在し,
+\begin{equation*}
+R_n(x) = \frac{f^{(n)}(c)}{n!}(x-a)^n
+\end{equation*}
+とかける.($c$は$x$毎に変わることに注意せよ.)
 \end{thm}
+\begin{proof}
+$ \phi(x) = f(x) - f(a) + \frac{f'(a)}{1!}(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots + \frac{f^{(n-1)}(a)}{n-1!}(x-a)^{n-1}$とする.
+$\phi(a) = \phi'(a) = \ldots = \phi^{(n-1)}(a) = 0$となる.Cauchyの平均値の定理より
+\begin{equation*}
+\frac{\phi(x) - \phi(a)}{(x-a)^n} = \frac{\phi'(x_1) - \phi'(a)}{n(x_1 -a)^{n-1}} = \frac{\phi^{n}(x_n)}{n!}
+\end{equation*}
+となるので,これを変形することで示せる.
+\end{proof}
 
+さらにTaylorの剰余項は以下のように表現できる.
+\begin{prop}
+$f$が$C^{n}$級の時,
+\begin{equation*}
+R_n(x) = \int \frac{(x-a)^{n-1}}{(n-1)!}f^{(n)}(t)dt
+\end{equation*}
+となる.
+\end{prop}
+このノートではまだ積分について定義していないので,演習問題とする.
+$C^n$級についても多変数の時に定義する.
+$C^n$から被積分関数が可積分であることがわかり,部分積分で変形することで帰納的にわかる.
+
+コーシーの平均値の定理から極限を取ると
 \begin{thm}[ロピタルの定理]
-
+$f(x),g(x)$が微分可能かつ$g(x) \neq g(a)$かつ,$g'(a) \neq 0$とすると,以下が成り立つ.
+\begin{equation*}
+  \lim_{x \to a}\frac{f(x)-f(a)}{g(x) - g(a)} = \frac{f'(a)}{g'(a)}
+\end{equation*}
 \end{thm}
+\begin{rem}
+ ロピタルの定理は実際にはいくつかの亜種があり,例えば右辺は$a$での値が存在しなくとも,極限で一致していればよい.
+\end{rem}
 
 \section{関数列の極限}
+微分可能か関数の数列の極限を用いて新しく関数を作ろうとする時,その関数にどういう性質を認めるか考えたい.

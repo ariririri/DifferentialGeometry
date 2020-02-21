@@ -4,3 +4,33 @@
 そのためここでは,$\sin x, e^x$を収束べき級数として定義する.
 ここではべき級数の理論を実際に紹介する.
 
+\subsection{無限級数の収束}
+\subsection{関数の無限和の収束}
+\subsection{べき級数の収束とその判定方法}
+\begin{screen}
+\begin{dfn}
+\begin{equation*}
+ f(x) := \sum_{n=0}^{\infty} a_n(x -a)^n
+\end{equation*}
+を$a$を中心とする\textbf{べき級数}という.
+\end{dfn}
+\end{screen}
+
+\begin{lem}
+  以下を満たす$R$が一意に定まる.
+  \begin{itemize}
+    \item $|x -a | < R$に対し,$f(x)$はwell-defined.つまり,絶対収束する.
+    \item $|x - a| >R$ならば,発散する.
+  \end{itemize}
+この時,上で定める$R$を一様収束半径という.
+\end{lem}
+
+\subsection{指数関数,三角関数}
+\begin{screen}
+\begin{dfn}
+ \begin{equation*}
+  e^x := \sum_{n=0}^{\infty} \frac{1}{n!}x^n
+ \end{equation*}
+\end{dfn}
+\end{screen}
+とする.
